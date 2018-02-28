@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,11 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static Integer LOGIN_STATE = 1;
+    private static Integer LOGIN_STATE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,8 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        fragmentCreate(Catalog_tabs.class,null);
+        //fragmentCreate(Catalog_tabs.class,null);
+        activityNavigationCreate(R.layout.activity_catalog_tabs,null);
     }
 
     @Override
@@ -89,12 +92,12 @@ public class NavigationActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation_3dots view item clicks here.
-        android.support.v4.app.Fragment fragment = null;
-        Class fragmentClass = null;
+
+        int layot_id = -1;
+        setTitle(R.string.catalog);
         int id = item.getItemId();
         if (id == R.id.nav_catalog) {
-            fragmentClass = Catalog_tabs.class;
+            layot_id = R.layout.activity_catalog_tabs;
         } else if (id == R.id.nav_my_book) {
 
         } else if (id == R.id.nav_share) {
@@ -102,14 +105,24 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         }
-        fragmentCreate(fragmentClass,item);
         item.setChecked(true);
-        //setTitle(item.getTitle());
+        if (layot_id != -1)  activityNavigationCreate(layot_id,item);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void activityNavigationCreate(int layout_id, MenuItem item){
+        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout container = (LinearLayout) findViewById(R.id.frame_content);
+        inflater.inflate(layout_id, container);
+        if (item!= null) setTitle(item.getTitle());
+        else setTitle(R.string.catalog);
+    }
+
+
+
 
     private void fragmentCreate(Class fragmentClass, MenuItem item){
 
