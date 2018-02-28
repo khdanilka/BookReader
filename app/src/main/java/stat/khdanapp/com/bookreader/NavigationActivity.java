@@ -51,6 +51,7 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        fragmentCreate(Catalog_tabs.class,null);
     }
 
     @Override
@@ -101,25 +102,32 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         }
+        fragmentCreate(fragmentClass,item);
+        item.setChecked(true);
+        //setTitle(item.getTitle());
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void fragmentCreate(Class fragmentClass, MenuItem item){
+
+        android.support.v4.app.Fragment fragment = null;
         if (fragmentClass!= null) {
             try {
                 fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frame_content, fragment).commit();
-            // Выделение существующего элемента выполнено с помощью
-            // NavigationView
-            item.setChecked(true);
-            // Установить заголовок для action bar'а
-            setTitle(item.getTitle());
-        }
+            if (item == null) setTitle(R.string.catalog);
+            else setTitle(item.getTitle());
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        }
     }
+
+
+
 }
