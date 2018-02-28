@@ -5,4 +5,10 @@
     <string name="settings">Settings</string>
     <string name="share">Share</string>
     <string name="Communicate">Communicate</string>
+    <string name="tab_text_1">Recommended</string>
+    <string name="tab_text_2">Gendere</string>
+    <string name="tab_text_3">Popular</string>
+    <string name="recommended">Recommended</string>
+    <string name="gendere">Gendere</string>
+    <string name="popular">Popular</string>
 </resources>

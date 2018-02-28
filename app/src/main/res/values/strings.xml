@@ -28,4 +28,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_activity_catalog_tabs">Catalog_tabs</string>
+    <string name="tab_text_1">Recommended</string>
+    <string name="tab_text_2">Gendere</string>
+    <string name="tab_text_3">Popular</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="recommended">Recommended</string>
+    <string name="gendere">Gendere</string>
+    <string name="popular">Popular</string>
 </resources>
