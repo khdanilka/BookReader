@@ -11,4 +11,7 @@
     <string name="recommended">Recommended</string>
     <string name="gendere">Gendere</string>
     <string name="popular">Popular</string>
+    <string name="in_progress">In progress</string>
+    <string name="favorites">Favorites</string>
+    <string name="finished">Finished</string>
 </resources>
