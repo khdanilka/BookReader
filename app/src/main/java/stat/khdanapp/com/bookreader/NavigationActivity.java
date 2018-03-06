@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static Integer LOGIN_STATE = 0;
+    private static Integer LOGIN_STATE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class NavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //fragmentCreate(Catalog_tabs.class,null);
-        activityNavigationCreate(R.layout.activity_catalog_tabs,null);
+       // activityNavigationCreate(R.layout.activity_catalog_tabs,null);
     }
 
     @Override
@@ -93,11 +93,11 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        int layot_id = -1;
-        setTitle(R.string.catalog);
+        Class layot_id = null;
+        //setTitle(R.string.catalog);
         int id = item.getItemId();
         if (id == R.id.nav_catalog) {
-            layot_id = R.layout.activity_catalog_tabs;
+            layot_id = Catalog_tabs.class;
         } else if (id == R.id.nav_my_book) {
 
         } else if (id == R.id.nav_share) {
@@ -106,23 +106,19 @@ public class NavigationActivity extends AppCompatActivity
 
         }
         item.setChecked(true);
-        if (layot_id != -1)  activityNavigationCreate(layot_id,item);
+        if (layot_id != null)  activityNavigationCreate(layot_id,item);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void activityNavigationCreate(int layout_id, MenuItem item){
-        LayoutInflater inflater = getLayoutInflater();
-        LinearLayout container = (LinearLayout) findViewById(R.id.frame_content);
-        inflater.inflate(layout_id, container);
-        if (item!= null) setTitle(item.getTitle());
-        else setTitle(R.string.catalog);
+    private void activityNavigationCreate(Class layout_id, MenuItem item){
+
+        Intent intent = new Intent(this,layout_id);
+        startActivity(intent);
+        overridePendingTransition(0,0);
     }
-
-
-
 
     private void fragmentCreate(Class fragmentClass, MenuItem item){
 

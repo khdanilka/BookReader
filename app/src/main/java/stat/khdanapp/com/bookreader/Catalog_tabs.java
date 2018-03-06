@@ -17,9 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class Catalog_tabs extends AppCompatActivity {
+public class Catalog_tabs extends NavigationActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -40,9 +41,13 @@ public class Catalog_tabs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //View view = inflater.inflate(R.layout.activity_catalog_tabs, container, false);
+        //setContentView(R.layout.activity_catalog_tabs);
 
-        setContentView(R.layout.activity_catalog_tabs);
+        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout container = (LinearLayout) findViewById(R.id.frame_content);
+        inflater.inflate(R.layout.activity_catalog_tabs, container);
+
+        setTitle("Book catalog");
 
         //Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -67,7 +72,6 @@ public class Catalog_tabs extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
-
     }
 
 
