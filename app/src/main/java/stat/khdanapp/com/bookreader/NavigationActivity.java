@@ -1,6 +1,8 @@
 package stat.khdanapp.com.bookreader;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.support.design.widget.FloatingActionButton;
@@ -55,6 +57,7 @@ public class NavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         Intent intent = getIntent();
         int itemId = -1;
         if (intent != null) {
@@ -62,7 +65,25 @@ public class NavigationActivity extends AppCompatActivity
             if (itemId != -1) navigationView.getMenu().getItem(itemId).setChecked(true);
         }
 
+        setNavMenuColors(navigationView);
     }
+
+    private void setNavMenuColors(NavigationView navigationView){
+        int[][] states = new int[][]{
+                new int[]{-android.R.attr.state_checked}, // default
+                new int[]{android.R.attr.state_checked}  // checked
+        };
+
+        int[] colors = new int[]{
+                Color.GREEN,
+                Color.BLUE
+        };
+
+        ColorStateList color_menu_item = new ColorStateList(states, colors);
+        navigationView.setItemTextColor(color_menu_item);
+        navigationView.setItemIconTintList(color_menu_item);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -100,23 +121,31 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        Class layot_id = null;
-        //setTitle(R.string.catalog);
+        Class layot_id = null;        //setTitle(R.string.catalog);
         int id = item.getItemId();
         int menuOrderId = -1;
-        if (id == R.id.nav_catalog) {
-            layot_id = CatalogBookActivity.class;
-            menuOrderId = 0;
-        } else if (id == R.id.nav_my_book) {
-            layot_id = MyBooksActivity.class;
-            menuOrderId = 1;
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_settings) {
-
+        switch (id){
+            case (R.id.nav_catalog):
+                layot_id = CatalogBookActivity.class;
+                menuOrderId = 0;
+                break;
+            case (R.id.nav_my_book):
+                layot_id = MyBooksActivity.class;
+                menuOrderId = 1;
+                break;
+            case (R.id.nav_share):
+                break;
+            case (R.id.nav_settings):
+                break;
+            default:
+                throw new RuntimeException("чтото пошло не так");
         }
-        item.setChecked(true);
-        if (layot_id != null)  activityNavigationCreate(layot_id,menuOrderId);
+
+        if (layot_id != null)  {
+            item.setChecked(true);
+            activityNavigationCreate(layot_id,menuOrderId);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
