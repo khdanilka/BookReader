@@ -2,9 +2,11 @@ package stat.khdanapp.com.bookreader;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,8 @@ public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static Integer LOGIN_STATE = 1;
+
+    private String CHECKED_NAV_MENU = "checked_nav_menu";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,13 @@ public class NavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Intent intent = getIntent();
+        int itemId = -1;
+        if (intent != null) {
+            itemId = intent.getIntExtra(CHECKED_NAV_MENU,-1);
+            if (itemId != -1) navigationView.getMenu().getItem(itemId).setChecked(true);
+        }
 
     }
 
@@ -92,26 +103,30 @@ public class NavigationActivity extends AppCompatActivity
         Class layot_id = null;
         //setTitle(R.string.catalog);
         int id = item.getItemId();
+        int menuOrderId = -1;
         if (id == R.id.nav_catalog) {
             layot_id = CatalogBookActivity.class;
+            menuOrderId = 0;
         } else if (id == R.id.nav_my_book) {
             layot_id = MyBooksActivity.class;
+            menuOrderId = 1;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_settings) {
 
         }
         item.setChecked(true);
-        if (layot_id != null)  activityNavigationCreate(layot_id,item);
+        if (layot_id != null)  activityNavigationCreate(layot_id,menuOrderId);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void activityNavigationCreate(Class layout_id, MenuItem item){
+    private void activityNavigationCreate(Class layout_id, int item){
 
         Intent intent = new Intent(this,layout_id);
+        intent.putExtra(CHECKED_NAV_MENU,item);
         startActivity(intent);
         overridePendingTransition(0,0);
         finish();
