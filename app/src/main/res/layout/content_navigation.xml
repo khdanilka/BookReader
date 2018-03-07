@@ -10,4 +10,5 @@
     tools:context="stat.khdanapp.com.bookreader.NavigationActivity"
     tools:showIn="@layout/app_bar_navigation">
 
+
 </LinearLayout>

@@ -129,10 +129,12 @@ public class NavigationActivity extends AppCompatActivity
             case (R.id.nav_catalog):
                 layot_id = CatalogBookActivity.class;
                 menuOrderId = 0;
+                setTitle("Book catalog");
                 break;
             case (R.id.nav_my_book):
                 layot_id = MyBooksActivity.class;
                 menuOrderId = 1;
+                setTitle("My books");
                 break;
             case (R.id.nav_share):
                 break;
@@ -142,7 +144,7 @@ public class NavigationActivity extends AppCompatActivity
                 throw new RuntimeException("чтото пошло не так");
         }
 
-        if (layot_id != null)  {
+        if (layot_id != null && layot_id!= this.getClass())  {
             item.setChecked(true);
             activityNavigationCreate(layot_id,menuOrderId);
         }
@@ -158,6 +160,7 @@ public class NavigationActivity extends AppCompatActivity
         intent.putExtra(CHECKED_NAV_MENU,item);
         startActivity(intent);
         overridePendingTransition(0,0);
+       // overridePendingTransition(R.anim.diagonaltranslate,R.anim.alpha);
         finish();
     }
 

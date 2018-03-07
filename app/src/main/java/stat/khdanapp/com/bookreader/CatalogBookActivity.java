@@ -66,6 +66,7 @@ public class CatalogBookActivity extends NavigationActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
     }
 
 
