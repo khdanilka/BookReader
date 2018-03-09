@@ -6,4 +6,5 @@
     <string name="in_progress">In progress</string>
     <string name="favorites">Favorites</string>
     <string name="finished">Finished</string>
+    <string name="current_reading">Current book</string>
 </resources>

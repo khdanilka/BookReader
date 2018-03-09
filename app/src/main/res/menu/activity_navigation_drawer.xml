@@ -15,6 +15,16 @@
 
     </group>
 
+    <item android:title="Active">
+        <menu>
+            <item
+                android:id="@+id/current_book"
+                android:icon="@drawable/ic_play_arrow_black_24dp"
+                android:title="@string/current_reading" />
+        </menu>
+
+    </item>
+
     <item android:title="@string/Communicate">
         <menu>
             <item

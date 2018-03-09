@@ -65,7 +65,7 @@ public class NavigationActivity extends AppCompatActivity
             if (itemId != -1) navigationView.getMenu().getItem(itemId).setChecked(true);
         }
 
-        setNavMenuColors(navigationView);
+       // setNavMenuColors(navigationView);
     }
 
     private void setNavMenuColors(NavigationView navigationView){
@@ -140,6 +140,9 @@ public class NavigationActivity extends AppCompatActivity
                 break;
             case (R.id.nav_settings):
                 break;
+            case (R.id.current_book):
+                layot_id = ActiveBookActivity.class;
+                break;
             default:
                 throw new RuntimeException("чтото пошло не так");
         }
@@ -159,25 +162,10 @@ public class NavigationActivity extends AppCompatActivity
         Intent intent = new Intent(this,layout_id);
         intent.putExtra(CHECKED_NAV_MENU,item);
         startActivity(intent);
-        overridePendingTransition(0,0);
-       // overridePendingTransition(R.anim.diagonaltranslate,R.anim.alpha);
-        finish();
-    }
-
-    private void fragmentCreate(Class fragmentClass, MenuItem item){
-
-        android.support.v4.app.Fragment fragment = null;
-        if (fragmentClass!= null) {
-            try {
-                fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_content, fragment).commit();
-            if (item == null) setTitle(R.string.catalog);
-            else setTitle(item.getTitle());
-
+        if (!layout_id.equals(ActiveBookActivity.class)) {
+            overridePendingTransition(0, 0);
+            // overridePendingTransition(R.anim.diagonaltranslate,R.anim.alpha);
+            finish();
         }
     }
 
