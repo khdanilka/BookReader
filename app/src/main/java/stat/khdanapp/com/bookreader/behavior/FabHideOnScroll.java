@@ -57,6 +57,7 @@ public class FabHideOnScroll extends FloatingActionButton.Behavior {
             child.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         }
 
+
     }
 
 }
