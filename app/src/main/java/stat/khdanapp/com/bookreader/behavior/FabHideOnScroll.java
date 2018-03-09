@@ -51,10 +51,10 @@ public class FabHideOnScroll extends FloatingActionButton.Behavior {
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
                     child.getLayoutParams();
             int fab_bottomMargin = layoutParams.bottomMargin;
-            child.animate().translationY(child.getHeight() + fab_bottomMargin).setInterpolator(new
+            child.animate().translationX(child.getHeight() + fab_bottomMargin).setInterpolator(new
                     LinearInterpolator()).start();
         } else if (dyConsumed < 0) {
-            child.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
+            child.animate().translationX(0).setInterpolator(new LinearInterpolator()).start();
         }
 
 
