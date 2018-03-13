@@ -1,9 +1,6 @@
 package stat.khdanapp.com.bookreader.adapter;
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import stat.khdanapp.com.bookreader.ActiveBookActivity;
-import stat.khdanapp.com.bookreader.MyBooksActivity;
 import stat.khdanapp.com.bookreader.R;
 import stat.khdanapp.com.bookreader.model.BookCardView;
 
 public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardViewHolder> {
 
     private List<BookCardView> mListCard = new ArrayList<>();
-    WeakReference<Context> contextWeakReference;
+    CustomRVAdapterListener adapterListener;
 
-    public CustomRVAdapter(List<BookCardView> listCard, Context context){
+    public CustomRVAdapter(List<BookCardView> listCard, CustomRVAdapterListener contListener){
         mListCard = listCard;
-        contextWeakReference = new WeakReference<Context>(context);
+        adapterListener = contListener;
     }
 
     @Override
@@ -42,6 +36,7 @@ public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardVi
         holder.bookAuthor.setText(currentCustModelCard.getAuthor());
         holder.imgView.setImageResource(currentCustModelCard.getImageId());
         holder.imageId = currentCustModelCard.getImageId();
+        holder.pos = position;
     }
     @Override
     public int getItemCount() {
@@ -52,7 +47,10 @@ public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardVi
         public ImageView imgView;
         public TextView bookTitle;
         public TextView bookAuthor;
+
         public int imageId; // bad solution
+        public int pos; //bad solution
+
 
         public CardViewHolder(View view) {
             super(view);
@@ -63,18 +61,24 @@ public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardVi
             imgView.setOnClickListener (new View.OnClickListener () {
                 @Override
                 public void onClick(View v) {
-                    detailsActivity();
+                    adapterListener.detailedActivityOpen(imageId,bookTitle.getText().toString());
+                }
+            });
+
+            imgView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    adapterListener.showDialogOnLongTap(pos);
+                    return true;
                 }
             });
         }
-
-        private void detailsActivity(){
-            Intent intent = new Intent(contextWeakReference.get(), ActiveBookActivity.class);
-            intent.putExtra(ActiveBookActivity.IMAGE,imageId);
-            intent.putExtra(ActiveBookActivity.TITLE,bookTitle.getText());
-            contextWeakReference.get().startActivity(intent);
-        }
-
     }
+
+     public interface CustomRVAdapterListener{
+         void detailedActivityOpen(int imageId, String bookTitle);
+         void showDialogOnLongTap(int position);
+    }
+
 
 }

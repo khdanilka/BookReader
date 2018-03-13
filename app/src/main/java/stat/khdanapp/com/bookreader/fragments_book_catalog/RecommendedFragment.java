@@ -2,6 +2,7 @@ package stat.khdanapp.com.bookreader.fragments_book_catalog;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,12 +19,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import stat.khdanapp.com.bookreader.ActiveBookActivity;
 import stat.khdanapp.com.bookreader.R;
 import stat.khdanapp.com.bookreader.adapter.CustomRVAdapter;
+import stat.khdanapp.com.bookreader.dialog.CustomDialogFragment;
 import stat.khdanapp.com.bookreader.model.BookCardView;
 
 
-public class RecommendedFragment extends Fragment {
+public class RecommendedFragment extends Fragment implements CustomRVAdapter.CustomRVAdapterListener {
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -35,6 +38,20 @@ public class RecommendedFragment extends Fragment {
 //    // TODO: Rename and change types of parameters
 //    private String mParam1;
 //    private String mParam2;
+
+    @Override
+    public void detailedActivityOpen(int imageId, String bookTitle) {
+        Intent intent = new Intent(getContext(), ActiveBookActivity.class);
+        intent.putExtra(ActiveBookActivity.IMAGE,imageId);
+        intent.putExtra(ActiveBookActivity.TITLE,bookTitle);
+        getContext().startActivity(intent);
+    }
+
+    @Override
+    public void showDialogOnLongTap(int position) {
+        CustomDialogFragment dialog = new CustomDialogFragment();
+        dialog.show(getFragmentManager(), "custom");
+    }
 
     private OnFragmentInteractionListener mListener;
 
@@ -86,7 +103,7 @@ public class RecommendedFragment extends Fragment {
             mCustModelCardsList.add(new BookCardView(imgID,"Название книги " + i, "Автор " + i));
         }
 
-        CustomRVAdapter customRVAdapter = new CustomRVAdapter(mCustModelCardsList,getContext());
+        CustomRVAdapter customRVAdapter = new CustomRVAdapter(mCustModelCardsList,this);
         rv.setAdapter(customRVAdapter);
 
         return rootView;
@@ -150,6 +167,7 @@ public class RecommendedFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+
     }
 
 
