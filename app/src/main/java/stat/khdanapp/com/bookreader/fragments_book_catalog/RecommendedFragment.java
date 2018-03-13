@@ -86,7 +86,7 @@ public class RecommendedFragment extends Fragment {
             mCustModelCardsList.add(new BookCardView(imgID,"Название книги " + i, "Автор " + i));
         }
 
-        CustomRVAdapter customRVAdapter = new CustomRVAdapter(mCustModelCardsList);
+        CustomRVAdapter customRVAdapter = new CustomRVAdapter(mCustModelCardsList,getContext());
         rv.setAdapter(customRVAdapter);
 
         return rootView;
