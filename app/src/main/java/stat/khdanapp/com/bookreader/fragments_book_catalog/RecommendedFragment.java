@@ -1,6 +1,9 @@
 package stat.khdanapp.com.bookreader.fragments_book_catalog;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,9 +79,9 @@ public class RecommendedFragment extends Fragment {
         int imgID;
         for (int i = 1; i <= 9; i++) {
             if (i%2 == 0){
-                imgID = R.drawable.a1;
+                imgID = R.drawable.a3;
             }else{
-                imgID = R.drawable.a2;
+                imgID = R.drawable.a4;
             }
             mCustModelCardsList.add(new BookCardView(imgID,"Название книги " + i, "Автор " + i));
         }
@@ -87,6 +91,39 @@ public class RecommendedFragment extends Fragment {
 
         return rootView;
     }
+
+    public static Uri resourceToUri(Context context, int resID) {
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                context.getResources().getResourcePackageName(resID) + '/' +
+                context.getResources().getResourceTypeName(resID) + '/' +
+                context.getResources().getResourceEntryName(resID) );
+    }
+
+    private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(
+                getContext().getContentResolver().openInputStream(selectedImage), null, o);
+
+        final int REQUIRED_SIZE = 100;
+
+        int width_tmp = o.outWidth, height_tmp = o.outHeight;
+        int scale = 1;
+        while (true) {
+            if (width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE) {
+                break;
+            }
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale *= 2;
+        }
+
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeStream(
+                getContext().getContentResolver().openInputStream(selectedImage), null, o2);
+    }
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
