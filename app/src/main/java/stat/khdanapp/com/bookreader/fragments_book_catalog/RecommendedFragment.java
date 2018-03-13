@@ -1,5 +1,6 @@
 package stat.khdanapp.com.bookreader.fragments_book_catalog;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,8 +33,12 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
 //    private static final String ARG_PARAM1 = "param1";
 //    private static final String ARG_PARAM2 = "param2";
 
-    RecyclerView rv;
+    private static final int REQUEST_WEIGHT = 1;
+    private static final int REQUEST_ANOTHER_ONE = 2;
 
+    RecyclerView rv;
+    List<BookCardView> mCustModelCardsList;
+    CustomRVAdapter customRVAdapter;
 
 //    // TODO: Rename and change types of parameters
 //    private String mParam1;
@@ -47,11 +52,39 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
         getContext().startActivity(intent);
     }
 
+    private int onOrderToDelete;
+
     @Override
     public void showDialogOnLongTap(int position) {
+        onOrderToDelete = position;
         CustomDialogFragment dialog = new CustomDialogFragment();
-        dialog.show(getFragmentManager(), "custom");
+        dialog.setTargetFragment(this, REQUEST_WEIGHT);
+        dialog.show(getFragmentManager(), dialog.getClass().getName());
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+//            switch (requestCode) {
+//                case REQUEST_WEIGHT:
+//                    int weight = data.getIntExtra(CustomDialogFragment.TAG_WEIGHT_SELECTED, -1)
+//                    //используем полученные результаты
+//                    //...
+//                    break;
+//                case REQUEST_ANOTHER_ONE:
+//                    //...
+//                    break;
+//                //обработка других requestCode
+//            }
+//            //updateUI();
+            mCustModelCardsList.remove(onOrderToDelete);
+            customRVAdapter.notifyDataSetChanged();
+
+        }
+    }
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,7 +125,7 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
         //layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(layoutManager);
 
-        List<BookCardView> mCustModelCardsList = new ArrayList<>();
+        mCustModelCardsList = new ArrayList<>();
         int imgID;
         for (int i = 1; i <= 9; i++) {
             if (i%2 == 0){
@@ -103,7 +136,7 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
             mCustModelCardsList.add(new BookCardView(imgID,"Название книги " + i, "Автор " + i));
         }
 
-        CustomRVAdapter customRVAdapter = new CustomRVAdapter(mCustModelCardsList,this);
+        customRVAdapter = new CustomRVAdapter(mCustModelCardsList,this);
         rv.setAdapter(customRVAdapter);
 
         return rootView;
