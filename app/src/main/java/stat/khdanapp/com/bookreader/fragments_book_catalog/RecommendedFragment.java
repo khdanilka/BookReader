@@ -1,5 +1,6 @@
 package stat.khdanapp.com.bookreader.fragments_book_catalog;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -13,8 +14,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -60,6 +63,18 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
         CustomDialogFragment dialog = new CustomDialogFragment();
         dialog.setTargetFragment(this, REQUEST_WEIGHT);
         dialog.show(getFragmentManager(), dialog.getClass().getName());
+    }
+
+    @Override
+    public void favoriteButtonClickedOnItem(int position, int tag) {
+
+        if(tag == R.drawable.ic_favorite_border_black_24dp) {
+            mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_black_24dp);
+        }
+        else {
+            mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_border_black_24dp);
+        }
+        customRVAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -133,7 +148,8 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
             }else{
                 imgID = R.drawable.a4;
             }
-            mCustModelCardsList.add(new BookCardView(imgID,"Название книги " + i, "Автор " + i));
+            int favoriteIdBuf =  R.drawable.ic_favorite_border_black_24dp;
+            mCustModelCardsList.add(new BookCardView(imgID,"Название книги " + i, "Автор " + i,favoriteIdBuf));
         }
 
         customRVAdapter = new CustomRVAdapter(mCustModelCardsList,this);

@@ -1,10 +1,13 @@
 package stat.khdanapp.com.bookreader.adapter;
 
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +39,8 @@ public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardVi
         holder.bookAuthor.setText(currentCustModelCard.getAuthor());
         holder.imgView.setImageResource(currentCustModelCard.getImageId());
         holder.imageId = currentCustModelCard.getImageId();
+        holder.imageButton.setImageResource(currentCustModelCard.getFavoriteId());
+        holder.imageButton.setTag(currentCustModelCard.getFavoriteId());
         holder.pos = position;
     }
     @Override
@@ -47,16 +52,17 @@ public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardVi
         public ImageView imgView;
         public TextView bookTitle;
         public TextView bookAuthor;
+        public ImageButton imageButton;
 
         public int imageId; // bad solution
         public int pos; //bad solution
-
 
         public CardViewHolder(View view) {
             super(view);
             imgView = (ImageView) view.findViewById(R.id.image_card_view);
             bookTitle = (TextView) view.findViewById(R.id.title_card_view);
             bookAuthor = (TextView) view.findViewById(R.id.author_card_view);
+            imageButton = view.findViewById(R.id.button_favorite);
 
             imgView.setOnClickListener (new View.OnClickListener () {
                 @Override
@@ -72,12 +78,44 @@ public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardVi
                     return true;
                 }
             });
+
+
+//            imageButton.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View view, MotionEvent motionEvent) {
+//
+//                    if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+//                        if(imageButton.getTag() == R.drawable.ic_favorite_border_black_24dp) {
+//                            imageButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+//                            imageButton.setTag(R.drawable.ic_favorite_black_24dp);
+//                        }
+//                        else {
+//                            imageButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+//                            imageButton.setTag(R.drawable.ic_favorite_border_black_24dp);
+//                        }
+//
+//                    }
+//
+//                    return false;
+//                }
+//
+//            });
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    adapterListener.favoriteButtonClickedOnItem(pos,(Integer)view.getTag());
+                }
+            });
+
+
+
         }
     }
 
      public interface CustomRVAdapterListener{
          void detailedActivityOpen(int imageId, String bookTitle);
          void showDialogOnLongTap(int position);
+         void favoriteButtonClickedOnItem(int position, int tag);
     }
 
 

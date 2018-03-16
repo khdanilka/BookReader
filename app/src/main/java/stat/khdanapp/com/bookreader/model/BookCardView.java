@@ -6,11 +6,21 @@ public class BookCardView {
     private int imageId;
     private String bookTitle;
     private String author;
+    private int favoriteId;
 
-    public BookCardView(int imageId, String bookTitle, String author) {
+    public int getFavoriteId() {
+        return favoriteId;
+    }
+
+    public void setFavoriteId(int favoriteId) {
+        this.favoriteId = favoriteId;
+    }
+
+    public BookCardView(int imageId, String bookTitle, String author, int favoriteId) {
         this.imageId = imageId;
         this.bookTitle = bookTitle;
         this.author = author;
+        this.favoriteId = favoriteId;
     }
 
     public int getImageId() {
