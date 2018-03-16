@@ -17,6 +17,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import stat.khdanapp.com.bookreader.fragments_book_catalog.GendereFragment;
+import stat.khdanapp.com.bookreader.fragments_book_catalog.PopularFragment;
+import stat.khdanapp.com.bookreader.fragments_book_catalog.RecommendedFragment;
+import stat.khdanapp.com.bookreader.fragments_my_books.FavoriteFragment;
+
 public class MyBooksActivity extends NavigationActivity {
 
     private SectionsPagerAdapterMyBook mSectionsPagerAdapter;
@@ -42,10 +50,14 @@ public class MyBooksActivity extends NavigationActivity {
         setTitle("My books");
 
         mSectionsPagerAdapter = new SectionsPagerAdapterMyBook(getSupportFragmentManager());
+        mSectionsPagerAdapter.addFragment(PlaceholderFragmentMybook.newInstance(0));
+        mSectionsPagerAdapter.addFragment(FavoriteFragment.newInstance());
+        mSectionsPagerAdapter.addFragment(PlaceholderFragmentMybook.newInstance(2));
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container_mybook);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(2);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs_mybooks);
 
@@ -121,27 +133,29 @@ public class MyBooksActivity extends NavigationActivity {
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
     public class SectionsPagerAdapterMyBook extends FragmentPagerAdapter {
 
         public SectionsPagerAdapterMyBook(FragmentManager fm) {
             super(fm);
         }
 
+        List<Fragment> fragments = new ArrayList<>();
+
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragmentMybook (defined as a static inner class below).
-            return PlaceholderFragmentMybook.newInstance(position + 1);
+            // return RecommendedFragment.newInstance();
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return fragments.size();
+        }
+
+        public void addFragment(Fragment fr){
+            fragments.add(fr);
         }
     }
 }

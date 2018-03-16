@@ -23,6 +23,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import stat.khdanapp.com.bookreader.fragments_book_catalog.GendereFragment;
+import stat.khdanapp.com.bookreader.fragments_book_catalog.PopularFragment;
 import stat.khdanapp.com.bookreader.fragments_book_catalog.RecommendedFragment;
 
 public class CatalogBookActivity extends NavigationActivity {
@@ -46,8 +48,8 @@ public class CatalogBookActivity extends NavigationActivity {
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mSectionsPagerAdapter.addFragment(RecommendedFragment.newInstance());
-        mSectionsPagerAdapter.addFragment(RecommendedFragment.newInstance());
-        mSectionsPagerAdapter.addFragment(RecommendedFragment.newInstance());
+        mSectionsPagerAdapter.addFragment(GendereFragment.newInstance());
+        mSectionsPagerAdapter.addFragment(PopularFragment.newInstance());
 
 
 

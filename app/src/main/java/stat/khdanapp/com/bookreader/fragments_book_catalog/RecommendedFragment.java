@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,11 +22,14 @@ import android.widget.ImageButton;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import stat.khdanapp.com.bookreader.ActiveBookActivity;
 import stat.khdanapp.com.bookreader.R;
 import stat.khdanapp.com.bookreader.adapter.CustomRVAdapter;
+import stat.khdanapp.com.bookreader.controler.DataController;
 import stat.khdanapp.com.bookreader.dialog.CustomDialogFragment;
 import stat.khdanapp.com.bookreader.model.BookCardView;
 
@@ -39,9 +43,9 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
     private static final int REQUEST_WEIGHT = 1;
     private static final int REQUEST_ANOTHER_ONE = 2;
 
-    RecyclerView rv;
-    List<BookCardView> mCustModelCardsList;
-    CustomRVAdapter customRVAdapter;
+    public RecyclerView rv;
+    public List<BookCardView> mCustModelCardsList;
+    public CustomRVAdapter customRVAdapter;
 
 //    // TODO: Rename and change types of parameters
 //    private String mParam1;
@@ -55,7 +59,7 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
         getContext().startActivity(intent);
     }
 
-    private int onOrderToDelete;
+    public int onOrderToDelete;
 
     @Override
     public void showDialogOnLongTap(int position) {
@@ -70,9 +74,12 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
 
         if(tag == R.drawable.ic_favorite_border_black_24dp) {
             mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_black_24dp);
+            DataController.writeSharedPref(getActivity(),mCustModelCardsList.get(position).getAuthor(),mCustModelCardsList.get(position).getBookTitle());
+            //DataController.readSharedPref(getActivity());
         }
         else {
             mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_border_black_24dp);
+            DataController.removeSharedPref(getActivity(),mCustModelCardsList.get(position).getBookTitle());
         }
         customRVAdapter.notifyDataSetChanged();
     }
@@ -100,7 +107,6 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
     }
 
 
-
     private OnFragmentInteractionListener mListener;
 
     public RecommendedFragment() {
@@ -108,12 +114,12 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
     }
 
     public static RecommendedFragment newInstance() {
-        RecommendedFragment fragment = new RecommendedFragment();
+        //RecommendedFragment fragment = new RecommendedFragment();
         //Bundle args = new Bundle();
         //args.putString(ARG_PARAM1, param1);
         //args.putString(ARG_PARAM2, param2);
         //fragment.setArguments(args);
-        return fragment;
+        return new RecommendedFragment();
     }
 
     @Override
@@ -149,7 +155,9 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
                 imgID = R.drawable.a4;
             }
             int favoriteIdBuf =  R.drawable.ic_favorite_border_black_24dp;
-            mCustModelCardsList.add(new BookCardView(imgID,"Название книги " + i, "Автор " + i,favoriteIdBuf));
+            String bookTitle = "Название книги " + i;
+            if (DataController.containsSharedPref(getActivity(),bookTitle)) favoriteIdBuf = R.drawable.ic_favorite_black_24dp;
+            mCustModelCardsList.add(new BookCardView(imgID,bookTitle, "Автор " + i,favoriteIdBuf));
         }
 
         customRVAdapter = new CustomRVAdapter(mCustModelCardsList,this);

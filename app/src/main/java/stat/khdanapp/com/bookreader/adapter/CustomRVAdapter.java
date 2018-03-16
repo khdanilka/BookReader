@@ -107,8 +107,6 @@ public class CustomRVAdapter extends RecyclerView.Adapter<CustomRVAdapter.CardVi
                 }
             });
 
-
-
         }
     }
 
