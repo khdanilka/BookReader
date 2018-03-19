@@ -1,1 +1,15 @@
-<resources></resources>
+<resources>
+
+    <!-- status bar -->
+    <style name="customStatusBarColor">
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="customStatusBarColor.Orange">
+        <item name="android:statusBarColor">@color/colorPrimaryDarkOrange</item>
+    </style>
+
+    <style name="customStatusBarColor.Braun">
+        <item name="android:statusBarColor">@color/colorPrimaryDarkBraun</item>
+    </style>
+</resources>

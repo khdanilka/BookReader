@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--// standart *********************************************************-->
     <style name="ThemeStandart" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="appBarLayoutStyle">@style/standart_AppBarLayoutStyle</item>
         <item name="fabStyle">@style/fabStyle</item>
         <item name="customStatusBarColor">@style/customStatusBarColor</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
     </style>
-    <!--// orange ***********************************************************-->
-    <style name="ThemeStandart.Orange">
-        <item name="appBarLayoutStyle">@style/standart_AppBarLayoutStyle.Orange</item>
-        <item name="fabStyle">@style/fabStyle.Orange</item>
-        <item name="customStatusBarColor">@style/customStatusBarColor.Orange</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkOrange</item>
-    </style>
-    <!--// braun **************************************************************-->
+
     <style name="ThemeStandart.Braun">
         <item name="appBarLayoutStyle">@style/standart_AppBarLayoutStyle.Braun</item>
         <item name="fabStyle">@style/fabStyle.Braun</item>
         <item name="customStatusBarColor">@style/customStatusBarColor.Braun</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkBraun</item>
+        <item name="android:colorAccent">@color/colorAccentBraun</item>
     </style>
 
+    <style name="ThemeStandart.Orange">
+        <item name="appBarLayoutStyle">@style/standart_AppBarLayoutStyle.Orange</item>
+        <item name="fabStyle">@style/fabStyle.Orange</item>
+        <item name="customStatusBarColor">@style/customStatusBarColor.Orange</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkOrange</item>
+        <item name="android:colorAccent">@color/colorAccentOrange</item>
+    </style>
 </resources>

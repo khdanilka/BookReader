@@ -37,6 +37,8 @@ public class CatalogBookActivity extends NavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //setTheme (R.style.ThemeStandart_Braun);
+        setTheme (R.style.ThemeStandart_Orange);
         LayoutInflater inflater = getLayoutInflater();
         LinearLayout container = (LinearLayout) findViewById(R.id.frame_content);
         inflater.inflate(R.layout.activity_catalog_tabs, container);

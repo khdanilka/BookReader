@@ -30,17 +30,28 @@
     </style>
 
 
+
+    <!--// app bar-->
     <style name="standart_AppBarLayoutStyle" parent="@style/Widget.Design.AppBarLayout"></style>
 
-    <style name="standart_AppBarLayoutStyle.Yellow">
+    <style name="standart_AppBarLayoutStyle.Orange">
         <item name="android:background">@color/colorPrimaryOrange</item>
     </style>
 
-    <style name="standart_AppBarLayoutStyle.Red">
+    <style name="standart_AppBarLayoutStyle.Braun">
         <item name="android:background">@color/colorPrimaryBraun</item>
     </style>
 
 
-
+    <!--// fab-->
+    <style name="fabStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="backgroundTint">@color/colorAccent</item>
+    </style>
+    <style name="fabStyle.Orange">
+        <item name="backgroundTint">@color/colorAccentOrange</item>
+    </style>
+    <style name="fabStyle.Braun">
+        <item name="backgroundTint">@color/colorAccentBraun</item>
+    </style>
 
 </resources>

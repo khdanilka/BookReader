@@ -26,6 +26,11 @@ public class NavigationActivity extends AppCompatActivity
 
     private String CHECKED_NAV_MENU = "checked_nav_menu";
 
+    public static final int SIMPLE_THEME = 0;
+    public static final int ORANGE_THEME = 1;
+    public static final int BRAUN_THEME = 2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,8 @@ public class NavigationActivity extends AppCompatActivity
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
-
+        //setTheme (R.style.ThemeStandart_Braun);
+        setTheme (R.style.ThemeStandart_Orange);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -139,6 +145,7 @@ public class NavigationActivity extends AppCompatActivity
             case (R.id.nav_share):
                 break;
             case (R.id.nav_settings):
+                layot_id = SettingsActivity.class;
                 break;
             case (R.id.current_book):
                 layot_id = ActiveBookActivity.class;
@@ -148,21 +155,20 @@ public class NavigationActivity extends AppCompatActivity
         }
 
         if (layot_id != null && layot_id!= this.getClass())  {
-            item.setChecked(true);
-            activityNavigationCreate(layot_id,menuOrderId);
+            activityNavigationCreate(layot_id,menuOrderId,item);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void activityNavigationCreate(Class layout_id, int item){
+    private void activityNavigationCreate(Class layout_id, int item, MenuItem itemOut){
 
         Intent intent = new Intent(this,layout_id);
         intent.putExtra(CHECKED_NAV_MENU,item);
         startActivity(intent);
-        if (!layout_id.equals(ActiveBookActivity.class)) {
+        if (!layout_id.equals(ActiveBookActivity.class) && !layout_id.equals(SettingsActivity.class)) {
+            itemOut.setChecked(true);
             overridePendingTransition(0, 0);
             // overridePendingTransition(R.anim.diagonaltranslate,R.anim.alpha);
             finish();
