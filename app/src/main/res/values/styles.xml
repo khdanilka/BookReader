@@ -30,4 +30,17 @@
     </style>
 
 
+    <style name="standart_AppBarLayoutStyle" parent="@style/Widget.Design.AppBarLayout"></style>
+
+    <style name="standart_AppBarLayoutStyle.Yellow">
+        <item name="android:background">@color/colorPrimaryOrange</item>
+    </style>
+
+    <style name="standart_AppBarLayoutStyle.Red">
+        <item name="android:background">@color/colorPrimaryBraun</item>
+    </style>
+
+
+
+
 </resources>
