@@ -12,10 +12,8 @@ import java.util.ArrayList;
 
 import stat.khdanapp.com.bookreader.R;
 import stat.khdanapp.com.bookreader.adapter.CustomRVAdapter;
-import stat.khdanapp.com.bookreader.controler.DataController;
-import stat.khdanapp.com.bookreader.fragments_book_catalog.PopularFragment;
+import stat.khdanapp.com.bookreader.controler.DataManager;
 import stat.khdanapp.com.bookreader.fragments_book_catalog.RecommendedFragment;
-import stat.khdanapp.com.bookreader.model.BookCardView;
 
 
 public class FavoriteFragment extends RecommendedFragment {
@@ -36,7 +34,7 @@ public class FavoriteFragment extends RecommendedFragment {
         rv.setLayoutManager(layoutManager);
 
         mCustModelCardsList = new ArrayList<>();
-        mCustModelCardsList.addAll(DataController.readSharedPref(getActivity()));
+        mCustModelCardsList.addAll(DataManager.readSharedPref(getActivity()));
 //        int imgID;
 //        for (int i = 1; i <= 9; i++) {
 //            if (i%2 == 0){
@@ -46,7 +44,7 @@ public class FavoriteFragment extends RecommendedFragment {
 //            }
 //            int favoriteIdBuf =  R.drawable.ic_favorite_border_black_24dp;
 //            String bookTitle = "Название книги " + i;
-//            if (DataController.containsSharedPref(getActivity(),bookTitle)) favoriteIdBuf = R.drawable.ic_favorite_black_24dp;
+//            if (DataManager.containsSharedPref(getActivity(),bookTitle)) favoriteIdBuf = R.drawable.ic_favorite_black_24dp;
 //            mCustModelCardsList.add(new BookCardView(imgID,bookTitle, "Автор " + i,favoriteIdBuf));
 //        }
 
@@ -72,7 +70,7 @@ public class FavoriteFragment extends RecommendedFragment {
 //                //обработка других requestCode
 //            }
 //            //updateUI();
-            DataController.removeSharedPref(getActivity(),mCustModelCardsList.get(onOrderToDelete).getBookTitle());
+            DataManager.removeSharedPref(getActivity(),mCustModelCardsList.get(onOrderToDelete).getBookTitle());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -83,12 +81,12 @@ public class FavoriteFragment extends RecommendedFragment {
 
         if(tag == R.drawable.ic_favorite_border_black_24dp) {
             mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_black_24dp);
-            DataController.writeSharedPref(getActivity(),mCustModelCardsList.get(position).getAuthor(),mCustModelCardsList.get(position).getBookTitle());
-            //DataController.readSharedPref(getActivity());
+            DataManager.writeSharedPref(getActivity(),mCustModelCardsList.get(position).getAuthor(),mCustModelCardsList.get(position).getBookTitle());
+            //DataManager.readSharedPref(getActivity());
         }
         else {
             mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_border_black_24dp);
-            DataController.removeSharedPref(getActivity(),mCustModelCardsList.get(position).getBookTitle());
+            DataManager.removeSharedPref(getActivity(),mCustModelCardsList.get(position).getBookTitle());
             mCustModelCardsList.remove(position);
         }
         customRVAdapter.notifyDataSetChanged();

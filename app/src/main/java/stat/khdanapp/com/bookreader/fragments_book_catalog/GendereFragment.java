@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import stat.khdanapp.com.bookreader.R;
 import stat.khdanapp.com.bookreader.adapter.CustomRVAdapter;
-import stat.khdanapp.com.bookreader.controler.DataController;
+import stat.khdanapp.com.bookreader.controler.DataManager;
 import stat.khdanapp.com.bookreader.model.BookCardView;
 
 /**
@@ -44,7 +44,7 @@ public class GendereFragment extends RecommendedFragment {
             }
             int favoriteIdBuf =  R.drawable.ic_favorite_border_black_24dp;
             String bookTitle = "Название книги " + i;
-            if (DataController.containsSharedPref(getActivity(),bookTitle)) favoriteIdBuf = R.drawable.ic_favorite_black_24dp;
+            if (DataManager.containsSharedPref(getActivity(),bookTitle)) favoriteIdBuf = R.drawable.ic_favorite_black_24dp;
             mCustModelCardsList.add(new BookCardView(imgID,bookTitle, "Автор " + i,favoriteIdBuf));
         }
 

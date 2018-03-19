@@ -11,11 +11,8 @@ import java.util.Map;
 import stat.khdanapp.com.bookreader.R;
 import stat.khdanapp.com.bookreader.model.BookCardView;
 
-/**
- * Created by android on 3/16/18.
- */
 
-public class DataController {
+public class DataManager {
 
     public static ArrayList<BookCardView> readSharedPref(Activity activity){
         Context context = activity;

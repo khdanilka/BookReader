@@ -1,35 +1,28 @@
 package stat.khdanapp.com.bookreader.fragments_book_catalog;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import stat.khdanapp.com.bookreader.ActiveBookActivity;
 import stat.khdanapp.com.bookreader.R;
 import stat.khdanapp.com.bookreader.adapter.CustomRVAdapter;
-import stat.khdanapp.com.bookreader.controler.DataController;
+import stat.khdanapp.com.bookreader.controler.DataManager;
 import stat.khdanapp.com.bookreader.dialog.CustomDialogFragment;
 import stat.khdanapp.com.bookreader.model.BookCardView;
 
@@ -74,12 +67,12 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
 
         if(tag == R.drawable.ic_favorite_border_black_24dp) {
             mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_black_24dp);
-            DataController.writeSharedPref(getActivity(),mCustModelCardsList.get(position).getAuthor(),mCustModelCardsList.get(position).getBookTitle());
-            //DataController.readSharedPref(getActivity());
+            DataManager.writeSharedPref(getActivity(),mCustModelCardsList.get(position).getAuthor(),mCustModelCardsList.get(position).getBookTitle());
+            //DataManager.readSharedPref(getActivity());
         }
         else {
             mCustModelCardsList.get(position).setFavoriteId(R.drawable.ic_favorite_border_black_24dp);
-            DataController.removeSharedPref(getActivity(),mCustModelCardsList.get(position).getBookTitle());
+            DataManager.removeSharedPref(getActivity(),mCustModelCardsList.get(position).getBookTitle());
         }
         customRVAdapter.notifyDataSetChanged();
     }
@@ -156,7 +149,7 @@ public class RecommendedFragment extends Fragment implements CustomRVAdapter.Cus
             }
             int favoriteIdBuf =  R.drawable.ic_favorite_border_black_24dp;
             String bookTitle = "Название книги " + i;
-            if (DataController.containsSharedPref(getActivity(),bookTitle)) favoriteIdBuf = R.drawable.ic_favorite_black_24dp;
+            if (DataManager.containsSharedPref(getActivity(),bookTitle)) favoriteIdBuf = R.drawable.ic_favorite_black_24dp;
             mCustModelCardsList.add(new BookCardView(imgID,bookTitle, "Автор " + i,favoriteIdBuf));
         }
 
