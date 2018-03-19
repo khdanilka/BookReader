@@ -44,7 +44,9 @@ public class MyBooksActivity extends NavigationActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         //setTheme (R.style.ThemeStandart_Braun);
-        setTheme (R.style.ThemeStandart_Orange);
+
+
+        //setTheme(R.style.ThemeStandart_Orange);
         LayoutInflater inflater = getLayoutInflater();
         LinearLayout container = (LinearLayout) findViewById(R.id.frame_content);
         inflater.inflate(R.layout.activity_my_books, container);

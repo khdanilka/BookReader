@@ -1,5 +1,6 @@
 package stat.khdanapp.com.bookreader;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -31,6 +32,8 @@ public class NavigationActivity extends AppCompatActivity
     public static final int BRAUN_THEME = 2;
 
 
+    public static int CURRENT_THEME = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +42,15 @@ public class NavigationActivity extends AppCompatActivity
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
-        //setTheme (R.style.ThemeStandart_Braun);
-        setTheme (R.style.ThemeStandart_Orange);
+        setTheme (R.style.ThemeStandart_Braun);
+       // setNavMenuColors(navigationView);
+//        setTheme(R.style.ThemeStandart);
+//        init();
+        setThemeMethod(CURRENT_THEME);
+    }
+
+    protected void init(){
+
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,9 +80,8 @@ public class NavigationActivity extends AppCompatActivity
             itemId = intent.getIntExtra(CHECKED_NAV_MENU,-1);
             if (itemId != -1) navigationView.getMenu().getItem(itemId).setChecked(true);
         }
-
-       // setNavMenuColors(navigationView);
     }
+
 
     private void setNavMenuColors(NavigationView navigationView){
         int[][] states = new int[][]{
@@ -162,11 +171,13 @@ public class NavigationActivity extends AppCompatActivity
         return true;
     }
 
+    private int requestCode = 32321;
+
     private void activityNavigationCreate(Class layout_id, int item, MenuItem itemOut){
 
         Intent intent = new Intent(this,layout_id);
         intent.putExtra(CHECKED_NAV_MENU,item);
-        startActivity(intent);
+        startActivityForResult(intent,requestCode);
         if (!layout_id.equals(ActiveBookActivity.class) && !layout_id.equals(SettingsActivity.class)) {
             itemOut.setChecked(true);
             overridePendingTransition(0, 0);
@@ -175,4 +186,42 @@ public class NavigationActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                int result=data.getIntExtra("result",-1);
+                setThemeMethod(result);
+            }
+        }
+    }
+
+    private void setThemeMethod(int number){
+        if ((number >= 0)){
+            switch (number) {
+                case SIMPLE_THEME:
+                    setTheme(R.style.ThemeStandart);
+                    CURRENT_THEME = 0;
+                    init();
+                    break;
+                case ORANGE_THEME:
+                    setTheme(R.style.ThemeStandart_Orange);
+                    CURRENT_THEME = 1;
+                    init();
+                    break;
+                case BRAUN_THEME:
+                    setTheme(R.style.ThemeStandart_Braun);
+                    CURRENT_THEME = 2;
+                    init();
+                    break;
+                default:
+                    break;
+
+            }
+
+        }
+
+    }
 }

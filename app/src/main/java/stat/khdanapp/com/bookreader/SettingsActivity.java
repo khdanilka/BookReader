@@ -1,5 +1,7 @@
 package stat.khdanapp.com.bookreader;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -27,16 +29,19 @@ public class SettingsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent returnIntent = new Intent();
                 if (radioButtonNumberChecked!=-1) {
+                    returnIntent.putExtra("result",radioButtonNumberChecked);
+                    setResult(Activity.RESULT_OK,returnIntent);
                     finish();
+                    return;
                 }
+                setResult(Activity.RESULT_CANCELED,returnIntent);
+                finish();
             }
         });
 
-
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
