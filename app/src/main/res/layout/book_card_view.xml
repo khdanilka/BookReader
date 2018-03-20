@@ -22,30 +22,32 @@
             android:layout_gravity="center"
             android:src="@drawable/a1" />
 
-        <TextView
-            android:id="@+id/title_card_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:maxLines="2"
-            android:padding="8dp"
-            android:paddingBottom="4dp"
-            android:text="Название книги"
-            android:textSize="16sp"
-            android:textColor="#222"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/title_card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto_bold"
+                android:maxLines="2"
+                android:padding="8dp"
+                android:paddingBottom="4dp"
+                android:text="Название книги"
+                android:textColor="#222"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/author_card_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:maxLines="2"
-            android:paddingLeft="8dp"
-            android:paddingBottom="8dp"
-            android:textSize="15sp"
-            android:textColor="#222"
-            android:text="Имя автора"/>
+            <TextView
+                android:id="@+id/author_card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:maxLines="2"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:text="Имя автора"
+                android:textColor="#222"
+                android:textSize="15sp" />
 
             <ImageButton
                 android:id="@+id/button_favorite"
