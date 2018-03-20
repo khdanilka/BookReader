@@ -37,8 +37,13 @@ public class CatalogBookActivity extends NavigationActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Intent intent = getIntent();
+        int theme = intent.getIntExtra("result",-1);
+        if(theme >= 0) setCurrentTheme(theme);
         super.onCreate(savedInstanceState);
         initCatalog();
+
         //setTheme (R.style.ThemeStandart_Braun);
         //setTheme (R.style.ThemeStandart_Orange);
 //        LayoutInflater inflater = getLayoutInflater();

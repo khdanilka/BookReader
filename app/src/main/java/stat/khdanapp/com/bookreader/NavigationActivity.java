@@ -34,6 +34,10 @@ public class NavigationActivity extends AppCompatActivity
 
     public static int CURRENT_THEME = 0;
 
+    public static void setCurrentTheme(int currentTheme) {
+        CURRENT_THEME = currentTheme;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

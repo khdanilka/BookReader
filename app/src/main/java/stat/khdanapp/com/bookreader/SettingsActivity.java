@@ -29,18 +29,24 @@ public class SettingsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent returnIntent = new Intent();
-                if (radioButtonNumberChecked!=-1) {
-                    returnIntent.putExtra("result",radioButtonNumberChecked);
-                    setResult(Activity.RESULT_OK,returnIntent);
-                    finish();
-                    return;
-                }
-                setResult(Activity.RESULT_CANCELED,returnIntent);
-                finish();
+               newActivityMy();
             }
         });
 
+    }
+
+    private void newActivityMy(){
+        Intent returnIntent = new Intent(this,CatalogBookActivity.class);
+        if (radioButtonNumberChecked!=-1) {
+            returnIntent.putExtra("result",radioButtonNumberChecked);
+            //setResult(Activity.RESULT_OK,returnIntent);
+            returnIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(returnIntent);
+            finish();
+            return;
+        }
+        setResult(Activity.RESULT_CANCELED,returnIntent);
+        finish();
     }
 
     @Override
