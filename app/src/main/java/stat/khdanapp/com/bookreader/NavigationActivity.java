@@ -185,20 +185,6 @@ public class NavigationActivity extends AppCompatActivity
             // overridePendingTransition(R.anim.diagonaltranslate,R.anim.alpha);
             finish();
         }
-        //finish();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
-                int result=data.getIntExtra("result",-1);
-                //setThemeMethod(result);
-                init(result);
-            }
-        }
     }
 
     protected void setThemeMethod(int number){
