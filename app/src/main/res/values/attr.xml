@@ -4,5 +4,6 @@
         <attr name="appBarLayoutStyle" format="reference" />
         <attr name="fabStyle" format="reference" />
         <attr name="customStatusBarColor" format="reference" />
+        <attr name="customfontstyle" format="reference" />
     </declare-styleable>
 </resources>

@@ -56,4 +56,18 @@
         <item name="backgroundTint">@color/colorAccentBraun</item>
     </style>
 
+
+    <!-- font -->
+    <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="customfontstyle.Medium" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="customfontstyle.Bold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
 </resources>

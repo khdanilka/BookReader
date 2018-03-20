@@ -27,11 +27,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:fontFamily="@font/roboto_bold"
                 android:maxLines="2"
                 android:padding="8dp"
                 android:paddingBottom="4dp"
                 android:text="Название книги"
+                android:fontFamily="?attr/customfontstyle"
                 android:textColor="#222"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -41,11 +41,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:fontFamily="@font/roboto"
                 android:maxLines="2"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
                 android:text="Имя автора"
+                android:fontFamily="?attr/customfontstyle"
                 android:textColor="#222"
                 android:textSize="15sp" />
 
