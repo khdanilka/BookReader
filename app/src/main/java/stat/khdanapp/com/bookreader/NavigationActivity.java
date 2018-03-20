@@ -42,14 +42,13 @@ public class NavigationActivity extends AppCompatActivity
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
-        setTheme (R.style.ThemeStandart_Braun);
-       // setNavMenuColors(navigationView);
-//        setTheme(R.style.ThemeStandart);
-//        init();
-        setThemeMethod(CURRENT_THEME);
+        init(CURRENT_THEME);
+     //   );
     }
 
-    protected void init(){
+    protected void init(int themeNumber){
+
+        setThemeMethod(themeNumber);
 
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -171,19 +170,18 @@ public class NavigationActivity extends AppCompatActivity
         return true;
     }
 
-    private int requestCode = 32321;
-
     private void activityNavigationCreate(Class layout_id, int item, MenuItem itemOut){
 
         Intent intent = new Intent(this,layout_id);
         intent.putExtra(CHECKED_NAV_MENU,item);
-        startActivityForResult(intent,requestCode);
+        startActivityForResult(intent,1);
         if (!layout_id.equals(ActiveBookActivity.class) && !layout_id.equals(SettingsActivity.class)) {
             itemOut.setChecked(true);
             overridePendingTransition(0, 0);
             // overridePendingTransition(R.anim.diagonaltranslate,R.anim.alpha);
             finish();
         }
+        //finish();
     }
 
     @Override
@@ -193,28 +191,29 @@ public class NavigationActivity extends AppCompatActivity
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 int result=data.getIntExtra("result",-1);
-                setThemeMethod(result);
+                //setThemeMethod(result);
+                init(result);
             }
         }
     }
 
-    private void setThemeMethod(int number){
-        if ((number >= 0)){
+    protected void setThemeMethod(int number){
+        if (number >= 0){
             switch (number) {
                 case SIMPLE_THEME:
                     setTheme(R.style.ThemeStandart);
                     CURRENT_THEME = 0;
-                    init();
+                    //init();
                     break;
                 case ORANGE_THEME:
                     setTheme(R.style.ThemeStandart_Orange);
                     CURRENT_THEME = 1;
-                    init();
+                    //init();
                     break;
                 case BRAUN_THEME:
                     setTheme(R.style.ThemeStandart_Braun);
                     CURRENT_THEME = 2;
-                    init();
+                    //init();
                     break;
                 default:
                     break;

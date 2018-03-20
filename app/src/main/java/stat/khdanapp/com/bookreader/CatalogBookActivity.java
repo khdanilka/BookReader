@@ -1,5 +1,7 @@
 package stat.khdanapp.com.bookreader;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,9 +38,46 @@ public class CatalogBookActivity extends NavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        initCatalog();
         //setTheme (R.style.ThemeStandart_Braun);
         //setTheme (R.style.ThemeStandart_Orange);
+//        LayoutInflater inflater = getLayoutInflater();
+//        LinearLayout container = (LinearLayout) findViewById(R.id.frame_content);
+//        inflater.inflate(R.layout.activity_catalog_tabs, container);
+//        setTitle("Book catalog");
+//
+//        //Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+//        //setSupportActionBar(toolbar);
+//        // Create the adapter that will return a fragment for each of the three
+//        // primary sections of the activity.
+//        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//        mSectionsPagerAdapter.addFragment(RecommendedFragment.newInstance());
+//        mSectionsPagerAdapter.addFragment(GendereFragment.newInstance());
+//        mSectionsPagerAdapter.addFragment(PopularFragment.newInstance());
+//
+//        // Set up the ViewPager with the sections adapter.
+//        mViewPager = (ViewPager) findViewById(R.id.container_catalog);
+//        mViewPager.setAdapter(mSectionsPagerAdapter);
+//        mViewPager.setOffscreenPageLimit(2);
+//
+//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        //tabLayout.setupWithViewPager(mViewPager);
+//
+//        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+//        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
+    }
+
+    private void initCatalog(){
         LayoutInflater inflater = getLayoutInflater();
         LinearLayout container = (LinearLayout) findViewById(R.id.frame_content);
         inflater.inflate(R.layout.activity_catalog_tabs, container);
@@ -53,8 +92,6 @@ public class CatalogBookActivity extends NavigationActivity {
         mSectionsPagerAdapter.addFragment(GendereFragment.newInstance());
         mSectionsPagerAdapter.addFragment(PopularFragment.newInstance());
 
-
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container_catalog);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -65,17 +102,9 @@ public class CatalogBookActivity extends NavigationActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-//        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -146,6 +175,20 @@ public class CatalogBookActivity extends NavigationActivity {
 
         public void addFragment(Fragment fr){
             fragments.add(fr);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                int result=data.getIntExtra("result",-1);
+                super.init(result);
+                initCatalog();
+            }
         }
     }
 }

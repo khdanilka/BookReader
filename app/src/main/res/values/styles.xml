@@ -32,7 +32,9 @@
 
 
     <!--// app bar-->
-    <style name="standart_AppBarLayoutStyle" parent="@style/Widget.Design.AppBarLayout"></style>
+    <style name="standart_AppBarLayoutStyle" parent="@style/Widget.Design.AppBarLayout">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
 
     <style name="standart_AppBarLayoutStyle.Orange">
         <item name="android:background">@color/colorPrimaryOrange</item>
